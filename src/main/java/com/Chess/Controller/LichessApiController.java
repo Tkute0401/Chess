@@ -2,6 +2,7 @@ package com.Chess.Controller;
 
 import com.Chess.Model.Game;
 import com.Chess.Repository.GameRepository;
+import com.jayway.jsonpath.JsonPath;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -37,15 +38,13 @@ public class LichessApiController {
 
         // Create body
         Map<String, Object> body = new HashMap<>();
-        body.put("id", "may24lta");
-        body.put("createdBy", "tkute");
         body.put("system", "arena");
         body.put("fullName", "Titled Arena May 2024");
-        body.put("minutes", 50);
+        body.put("minutes", 20);
         body.put("perf", Map.of("key", "bullet", "name", "Bullet", "icon", "T"));
-        body.put("clockTime", 5);
+        body.put("clockTime", 3);
         body.put("clockIncrement", 0);
-        body.put("clock", Map.of("limit", 50, "increment", 0));
+        body.put("clock", Map.of("limit", 3, "increment", 0));
         body.put("variant", "standard");
         body.put("rated", true);
         body.put("spotlight", Map.of("headline", "Titled only, $1,000 prize pool"));
@@ -97,7 +96,8 @@ public class LichessApiController {
 
         // Send request
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-
+        String  ll = JsonPath.read(response.getBody(), "$.username");
+        System.out.println("alfjafhlasjfljas"+ll);
         return response; // Returns the results as a JSON string
     }
 }
