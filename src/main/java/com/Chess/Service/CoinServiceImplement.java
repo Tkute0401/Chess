@@ -31,8 +31,10 @@ public class CoinServiceImplement implements CoinService {
         if (user == null) {
             throw new Exception("User not found with email: " + email);
         }
-        // Add new coins to existing coins
         Float currentCoins = user.getCoins() != null ? user.getCoins() : 0;
+        if (currentCoins < coins) {
+            throw new Exception("Insufficient coins");
+        }
         user.setCoins(currentCoins - coins);
 
         return userRepository.save(user);

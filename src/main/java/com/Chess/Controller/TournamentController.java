@@ -48,6 +48,7 @@ public class TournamentController {
 
             return ResponseEntity.ok("Prize claimed successfully");
         } catch (Exception e) {
+            System.out.println("nononono"+ payload);
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

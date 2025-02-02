@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/coins")
 public class CoinController {
@@ -19,8 +21,10 @@ public class CoinController {
     public ResponseEntity<?> addCoins(@RequestBody CoinRequest request) {
         try {
             User updatedUser = coinService.addCoins(request.getEmail(), request.getCoins());
+
             return new ResponseEntity<>(updatedUser, HttpStatus.OK);
         } catch (Exception e) {
+            System.err.println("Failed to add coins: " + e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
